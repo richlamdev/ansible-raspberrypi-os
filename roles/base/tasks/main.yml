@@ -1,0 +1,11 @@
+---
+# This includes a dist-upgrade  
+- include: packages.yml
+
+# time setting
+- include: system.yml
+
+# authentication
+- include: authentication.yml
+
+- include: security.yml

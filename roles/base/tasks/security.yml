@@ -1,0 +1,16 @@
+---
+- name: Disable ipv6 via /boot/cmdline.txt
+  lineinfile:
+    dest: "/etc/default/grub"
+    regexp: ^console=
+    line: '\1 ipv6.disable=1'
+    state: present
+
+- name: Disable Bluetooth, Wifi, Audio
+  blockinfile:
+    dest: "/boot/config.txt"
+    block: |
+      dtoverlay=pi3-disable-bt
+      dtoverlay=pi3-disable-wifi
+      dtparam=audio=off
+    insertafter: EOF

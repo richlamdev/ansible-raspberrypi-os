@@ -11,22 +11,16 @@
   apt:
     state: latest
     pkg:
-      - build-essential
       - curl
       - dnsutils
-      - golang
       - jq
-      - make
       - nmap
-      - p7zip
       - python3-pip
       - ranger
       - rsyslog-gnutls
       - tcpdump
       - tmux
       - ufw
-      - unrar
-      - unzip
       - vim
 
 # apt - cleanup

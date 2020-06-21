@@ -1,8 +1,9 @@
 ---
 - name: Disable ipv6 via /boot/cmdline.txt
   lineinfile:
-    dest: "/etc/default/grub"
-    regexp: ^console=
+    path: "/boot/cmdline.txt"
+    backrefs: True
+    regexp: '(^console=.*)'
     line: '\1 ipv6.disable=1'
     state: present
 

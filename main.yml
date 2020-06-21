@@ -1,14 +1,36 @@
 ---
 - name: Playbook desktop start
   hosts: all
-  #user:
   become: True
   become_user: root
   become_method: sudo
-  gather_facts: False
-  #tasks:
-  #- include_tasks: tasks/main.yml
+  gather_facts: True
+
+  pre_tasks:
+  vars_prompt:
+    - name: "username"
+      prompt: "Enter username"
+      private: False
+
+    - name: "password"
+      prompt: "Enter password"
+      encrypt: "sha512_crypt"
+      private: True  
+
+    - name: "ansible_username"
+      prompt: "Enter ansible service username"
+      private: False
+
+    - name: "ansible_password"
+      prompt: "Enter ansible service password"
+      encrypt: "sha512_crypt"
+      private: True
   
   roles:
     - role: base
     - role: ufw
+
+  post_tasks:
+    - debug:
+        msg:
+          - "Do not forget to remove pi default username and group!"

@@ -1,0 +1,14 @@
+---
+- name: Remove pi user and group
+  hosts: all
+  tasks:
+    - name: Remove default user 'pi'
+      user:
+        name: pi
+        state: absent
+        remove: yes
+    
+    - name: Remove group 'pi'
+      group:
+        name: pi
+        state: absent

@@ -37,9 +37,3 @@
       - pip # self upgrade pip first
       - glances
       - bottle
-
-- name: Copy misc from repository
-  git:
-    repo: "https://github.com/richlamdev/misc.git"
-    dest: "/opt/misc/"
-    update: yes 

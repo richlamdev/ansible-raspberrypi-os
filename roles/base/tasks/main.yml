@@ -1,7 +1,7 @@
 ---
-- include: setup-ansible-user.yml
-
 - include: setup-regular-user.yml
+
+- include: setup-ansible-user.yml
 
 # This includes a dist-upgrade  
 - include: packages.yml

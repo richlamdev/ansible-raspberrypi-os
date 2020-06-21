@@ -1,36 +1,22 @@
 ---
-- hosts: all
-
-  vars_prompt:
-    - name: "username"
-      prompt: "Enter regular username"
-      private: False
-
-    - name: "password"
-      prompt: "Enter password"
-      encrypt: "sha512_crypt"
-      private: True
-
-  tasks:
-    # Sudo Group Setup
-    - name: Make sure we have the defaul pi groups
-      group:
-        name: adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,netdev,input,i2c,spi
-        state: present
-  
-    # User 
-    - name: Create new regular user with default pi users groups
-      user:
-        name: "{{ username }}"
-        password: "{{ password }}"
-        state: present
-        groups: adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,netdev,input,i2c,spi
-        append: True
-        create_home: True
-        shell: /bin/bash
-    
-    - name: Remove defaul user 'pi'
-      user:
-        name: pi
-        state: absent
-        remove: yes
+# Sudo Group Setup
+- name: Make sure we have the adm group
+  group:
+    name: adm
+    state: present
+ 
+- name: Make sure we have the sudo group
+  group:
+    name: sudo
+    state: present
+ 
+# User 
+- name: Create new regular user with adm and sudo group
+  user:
+    name: "{{ username }}"
+    password: "{{ password }}"
+    state: present
+    groups: adm,sudo
+    append: True
+    create_home: True
+    shell: /bin/bash

@@ -7,7 +7,7 @@
     upgrade: dist
 
 # keep alphabetically ordered
-- name: packages - install our standard additions to the base install
+- name: packages - install standard additions to the base install
   apt:
     state: latest
     pkg:

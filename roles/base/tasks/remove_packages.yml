@@ -1,0 +1,21 @@
+--- # Remove standard packages
+
+- name: packages - remove unnecessary standard packages
+  apt:
+    state: absent
+    pkg: 
+      - avahi-daemon
+      - cifs-utils
+
+- name: Remove useless packages from the cache
+  apt: 
+    autoclean: True
+
+- name: Remove dependencies that are no longer required
+  apt:
+    autoremove: True
+  register: removed
+
+- name: Show removed dependencies
+  debug:
+    msg: "{{ removed }}"

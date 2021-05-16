@@ -1,9 +1,10 @@
 [py3hosts]
-localhost ansible_connection=local
+192.168.13.12
+#localhost ansible_connection=local
 
 
 [py3hosts:vars]
 ansible_become=True
 ansible_become_method=sudo
-ansible_become_user=root
+#ansible_become_user=root
 ansible_python_interpreter=/usr/bin/python3

@@ -1,5 +1,5 @@
 ---
-- name: Playbook desktop start
+- name: Playbook start
   hosts: all
   become: True
   become_user: root
@@ -27,6 +27,9 @@
       private: True
   
   roles:
+    #- role: ansible-grafana
+    #- role: ansible-node-exporter
+    #- role: ansible-prometheus
     - role: base
     - role: ufw
 

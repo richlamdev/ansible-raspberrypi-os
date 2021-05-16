@@ -1,6 +1,6 @@
 ---
 
 - name: reload ufw
-  ufw:
-    state: reloaded
-  when: ufw_state == 'enabled'
+  service:
+    name: ufw
+    state: restarted

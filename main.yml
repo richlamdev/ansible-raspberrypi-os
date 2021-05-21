@@ -27,9 +27,9 @@
       private: True
   
   roles:
-    #- role: ansible-grafana
-    #- role: ansible-node-exporter
-    #- role: ansible-prometheus
+    - role: ansible-grafana
+    - role: ansible-node-exporter
+    - role: ansible-prometheus
     - role: base
     - role: ufw
 

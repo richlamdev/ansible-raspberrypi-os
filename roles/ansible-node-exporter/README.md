@@ -4,8 +4,12 @@
 
 [![Build Status](https://travis-ci.org/cloudalchemy/ansible-node-exporter.svg?branch=master)](https://travis-ci.org/cloudalchemy/ansible-node-exporter)
 [![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
-[![Ansible Role](https://img.shields.io/badge/ansible%20role-cloudalchemy.node_exporter-blue.svg)](https://galaxy.ansible.com/cloudalchemy/node-exporter/)
+[![Ansible Role](https://img.shields.io/badge/ansible%20role-cloudalchemy.node_exporter-blue.svg)](https://galaxy.ansible.com/cloudalchemy/node_exporter/)
 [![GitHub tag](https://img.shields.io/github/tag/cloudalchemy/ansible-node-exporter.svg)](https://github.com/cloudalchemy/ansible-node-exporter/tags)
+
+## Warning
+
+Due to limitations of galaxy.ansible.com we had to move the role to https://galaxy.ansible.com/cloudalchemy/node_exporter and use `_` instead of `-` in role name. This is a breaking change and unfortunately, it affects all versions of node_exporter role as ansible galaxy doesn't offer any form of redirection. We are sorry for the inconvenience.
 
 ## Description
 
@@ -13,9 +17,9 @@ Deploy prometheus [node exporter](https://github.com/prometheus/node_exporter) u
 
 ## Requirements
 
-- Ansible >= 2.9 (It might work on previous versions, but we cannot guarantee it)
+- Ansible >= 2.7 (It might work on previous versions, but we cannot guarantee it)
 - gnu-tar on Mac deployer host (`brew install gnu-tar`)
-- Passlib is required when using the basic authentatication feature (`pip install passlib[bcrypt]`)
+- Passlib is required when using the basic authentication feature (`pip install passlib[bcrypt]`)
 
 ## Role Variables
 
@@ -23,7 +27,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 
 | Name           | Default Value | Description                        |
 | -------------- | ------------- | -----------------------------------|
-| `node_exporter_version` | 1.0.1 | Node exporter package version. Also accepts latest as parameter. |
+| `node_exporter_version` | 1.1.2 | Node exporter package version. Also accepts latest as parameter. |
 | `node_exporter_binary_local_dir` | "" | Allows to use local packages instead of ones distributed on github. As parameter it takes a directory where `node_exporter` binary is stored on host on which ansible is ran. This overrides `node_exporter_version` parameter |
 | `node_exporter_web_listen_address` | "0.0.0.0:9100" | Address on which node exporter will listen |
 | `node_exporter_web_telemetry_path` | "/metrics" | Path under which to expose metrics |
@@ -42,12 +46,12 @@ Use it in a playbook as follows:
 ```yaml
 - hosts: all
   roles:
-    - cloudalchemy.node-exporter
+    - cloudalchemy.node_exporter
 ```
 
 ### TLS config
 
-Before running node_exporter role, user needs to provision their own certificate and key.
+Before running node_exporter role, the user needs to provision their own certificate and key.
 ```yaml
 - hosts: all
   pre_tasks:
@@ -65,7 +69,7 @@ Before running node_exporter role, user needs to provision their own certificate
         privatekey_path: /etc/node_exporter/tls.key
         provider: selfsigned
   roles:
-    - cloudalchemy.node-exporter
+    - cloudalchemy.node_exporter
   vars:
     node_exporter_tls_server_config:
       cert_file: /etc/node_exporter/tls.cert
@@ -81,26 +85,11 @@ We provide demo site for full monitoring solution based on prometheus and grafan
 
 ## Local Testing
 
-The preferred way of locally testing the role is to use Docker and [molecule](https://github.com/metacloud/molecule) (v2.x). You will have to install Docker on your system. See "Get started" for a Docker package suitable to for your system.
-We are using tox to simplify process of testing on multiple ansible versions. To install tox execute:
-```sh
-pip3 install tox
-```
-To run tests on all ansible versions (WARNING: this can take some time)
-```sh
-tox
-```
-To run a custom molecule command on custom environment with only default test scenario:
-```sh
-tox -e py35-ansible28 -- molecule test -s default
-```
-For more information about molecule go to their [docs](http://molecule.readthedocs.io/en/latest/).
+The preferred way of locally testing the role is to use Docker and [molecule](https://github.com/ansible-community/molecule) (v3.x). You will have to install Docker on your system. See "Get started" for a Docker package suitable to for your system. Running your tests is as simple as executing `molecule test`.
 
-If you would like to run tests on remote docker host just specify `DOCKER_HOST` variable before running tox tests.
+## Continuous Intergation
 
-## Travis CI
-
-Combining molecule and travis CI allows us to test how new PRs will behave when used with multiple ansible versions and multiple operating systems. This also allows use to create test scenarios for different role configurations. As a result we have a quite large test matrix which will take more time than local testing, so please be patient.
+Combining molecule and circle CI allows us to test how new PRs will behave when used with multiple ansible versions and multiple operating systems. This also allows use to create test scenarios for different role configurations. As a result we have a quite large test matrix which can take more time than local testing, so please be patient.
 
 ## Contributing
 

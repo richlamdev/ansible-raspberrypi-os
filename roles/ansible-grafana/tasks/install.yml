@@ -51,18 +51,11 @@
       retries: 5
       delay: 2
 
-    - name: Bypass for Grafana TLS verification
-      template:
-        src: "etc/apt/apt.conf.d/01tls-bypass.j2"
-        dest: "/etc/apt/apt.conf.d/01tls-bypass"
-        mode: "0644"
-
     - name: Add Grafana repository [Debian/Ubuntu]
       apt_repository:
         repo: deb https://packages.grafana.com/oss/deb stable main
         state: present
         update_cache: true
-        validate_certs: False
       register: _update_apt_cache
       until: _update_apt_cache is succeeded
       retries: 5

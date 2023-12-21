@@ -6,3 +6,4 @@ testinfra>=1.7.0
 jmespath
 selinux
 passlib
+paramiko>=3.4.0 # not directly required, pinned by Snyk to avoid a vulnerability
